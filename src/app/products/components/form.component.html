@@ -1,0 +1,98 @@
+<form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm">
+    <div>
+        <input  
+        class="form-control my-2" 
+        placeholder="Name" 
+        name="name" 
+        [(ngModel)]="product.name"
+        #name="ngModel"
+        required
+        minlength="5"
+        >
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+            <div *ngIf="name.errors!['required']">
+                Nombre es requerido!
+            </div>
+            <div *ngIf="name.errors!['minlength']">
+                Nombre debe de tener al menos 5 caracteres!
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="number" 
+        class="form-control my-2" 
+        placeholder="Price" 
+        name="price" 
+        [(ngModel)]="product.price"
+        #price="ngModel"
+        required min="5"
+        >
+        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="text-danger">
+            @if (price.errors!['required']) {
+                <div>
+                    Precio es requerido!
+                </div>
+            }
+            @if (price.errors!['min']) {
+                <div>
+                    El precio debe ser mayor a 5!
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <input type="number" 
+        class="form-control my-2" 
+        placeholder="Quantity" 
+        name="quantity" 
+        [(ngModel)]="product.quantity"
+        #quantity="ngModel"
+        required min="5"
+        >
+        <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="text-danger">
+            @if (quantity.errors!['required']) {
+                <div>
+                    Stock es requerido!
+                </div>
+            }
+            @if (quantity.errors!['min']) {
+                <div>
+                    El Stock debe ser mayor a 5!
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <input  
+        class="form-control my-2" 
+        placeholder="Description" 
+        name="description" 
+        [(ngModel)]="product.description"
+        #description="ngModel"
+        required
+        >
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+            @if (description.errors!['required']) {
+                <div>
+                    Descripcion es requerido!
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <button 
+        [disabled]="!productForm.form.valid"
+        type="submit" 
+        class="btn btn-primary my-2">
+        {{product.id > 0? 'Update': 'Create'}}
+    </button>
+        <button 
+        type="button" 
+        class="btn btn-success my-2 mx-2" 
+        (click)="clean()">
+        Clean
+    </button>
+    </div>
+
+</form>
+
